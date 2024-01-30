@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script src="hittest.js"></script>
+<script>
+$(document).ready(function() { 
+	var snd_kick = new Audio('sounds/kick.mp3');
+	var events_counter = 0;
+	$('#target2').hide()
+	$('div#text').click(events_handler);
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').hide();
+			$('img#ball').animate({
+				left:550
+			},{
+				duration:1000,
+			});
+			$('img#bobshoot').animate({
+				top:350
+			},{
+				duration:1000,
+			});
+			$('#target2').delay(1000).show(0);
+		}
+
+		$('#target2').click(function(){
+			snd_kick.play();
+			document.getElementById("bobshoot").src="images/shoot1.png";
+			$('#target2').hide();
+			$('img#ball').animate({
+				left:600,
+				top:80
+			},{
+				duration:500,
+			});
+			$('div#text').delay(1000).show(0);
+			$('div#text').text('GOAL!!!!');
+		});
+
+		if(events_counter == 2){
+			$('div#text').text('Training completed');
+			$('#shooting').fadeOut(3000, function() {
+				window.location = 'hotel1.html';
+			})
+		}
+	}
+})
+</script>
+</head>
+<body>
+	<div id="shooting">
+		<img src="images/aim1.png" id="bobshoot">
+		<img src="images/ball.png" id="ball">
+		<img src="images/target.png" id="target2">
+		<div id="text">Shooting training</div>
+	</div>
+</body>
+</html>

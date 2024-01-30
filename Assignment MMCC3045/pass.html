@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script src="hittest.js"></script>
+<script>
+$(document).ready(function() { 
+	var events_counter = 0;
+
+	$('div#text').click(events_handler);
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').text("'Besides, I am going to be in the bench anyways. I am just a third-rate striker after all. Oh well.'")
+		}
+	}
+})
+</script>
+</head>
+<body>
+	<div id="stage">
+		<img src="images/bob1.png" id="bob1">
+	</div>
+</body>
+</html>

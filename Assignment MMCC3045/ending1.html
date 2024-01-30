@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+
+	var events_counter = 0;
+
+	$('div#text').click(events_handler);
+	$('div#start').hide();
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').text('You got hauled off with the help of your physio.')
+		}
+		if(events_counter == 2){
+			$('div#text').text("As you were going down the tunnel, you noticed your manager's face turning white.")
+		}
+		if(events_counter == 3){
+			$('div#text').text("You can't blame him, most of the strikers are unfit or injured.")
+		}
+		if(events_counter == 4){
+			$('div#stadium').css({
+				'background-image': 'url(images/physioroom.jpg)'
+			})
+			$('div#text').text("As you tried to recover in the physio room, you can't help but be worried how's the team doing your help.")
+		}
+		if(events_counter == 5){
+			$('div#text').text("By the time the match's over, your worst fears have been realized.")
+		}
+		if(events_counter == 6){
+			$('div#text').text("Your team lost as they scored in quick succession against a demoralised England team with a unfit striker.")
+		}
+		if(events_counter == 7){
+			$('div#text').text("As you lay down defeated, you thought to yourself, was there something I could have done better?")
+		}
+		if(events_counter == 8){
+			$('div#text').text("Game over")
+		}
+		if(events_counter == 9){
+			$('div#text').hide()
+			$('div#person').hide()
+			$('div#start').show()
+		}
+
+		$('div#start').click(function() {
+			$('#stadium').fadeOut(2000, function() {
+				window.location = 'index.html';
+			})
+		})
+		
+	}
+
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="person"> Narrator </div>
+		<div id="text">Your injury counter reached the max, thus you got injured during the match.</div>
+		<div id="start">Retry?</div>
+	</div>
+</body>
+</html>

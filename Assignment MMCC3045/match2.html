@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#chatting').hide();
+	var events_counter = 0;
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	updatePoints();
+	$('div#text').click(events_handler);
+
+	function updatePoints() {
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+	}
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+		$('div#hotel').css({
+				'background-image': 'url(images/lockerroom.jpg)'
+		})
+			$('#chatting').show();
+			$('div#person').text('Manager')
+			$('div#text').text("Today we are against Italy.")
+		}
+		if(events_counter == 2){
+			$('div#text').text("They are quite strong overall, especially their defence.")
+		}
+		if(events_counter == 3){
+			$('div#text').text("With that said strikers, you cannot waste any chance we created or else we will have a hard time taking the lead.")
+		}
+		if(events_counter == 4){
+			$('div#text').text("So here's the plan and starting lineup...")
+		}
+		if(events_counter == 5){
+			$('div#text').text("...Bob you will be in the starting eleven. Backup striker I'm putting you in the bench because of fitness concerns.")
+		}
+		if(events_counter == 6){
+			$('div#text').text("Do not let me down Bob, there will be no more second chances in this match.")
+		}
+		if(events_counter == 7){
+			$('div#text').text("Ok, any questions? Good. Let's go out there and win it boys!")
+		}
+		if(events_counter == 8){
+			$('#chatting').hide();
+			energy_points--;
+			energy_points--;
+			$('div#person').text('Narrator')
+			$('div#text').text("You head out of the tunnel and into the pitch (-2 energy points).")
+			updatePoints();
+		}
+		if(events_counter == 9){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			$('div#person').text('Bob')
+			$('div#text').text("Finally my first time to be in the starting eleven. I will not let anyone down today!")
+			$('#hotel').fadeOut(3000, function() {
+				window.location = 'italy1.html';
+			})
+		}
+	}
+})
+</script>
+</head>
+<body>
+	<div id="hotel">
+		<img src="images/manager.png" id="chatting">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="person"> Bob </div>
+		<div id="text"> "Alright semi-finals here we go!"</div>
+	</div>
+</body>
+</html>

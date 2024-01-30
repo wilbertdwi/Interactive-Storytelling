@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	var events_counter = 0;
+	var england_score = 0;
+	var italy_score = 0;
+	var snd_stadium = new Audio('sounds/match.mp3')
+	snd_stadium.loop = true;
+	var snd_foul = new Audio('sounds/foul.mp3');
+	var myTimer;
+	updatePoints();
+	$('div#text').click(events_handler);
+	$('img#dodge').hide();
+	$('#away').css({
+		'background-color':'blue'
+	})
+	function timer() {
+  		myTimer = setTimeout(function(){
+  		snd_foul.play();
+  		$('img#dodge').hide();
+  		 $('div#text').show();
+  		 injury_counter++;
+  		 updatePoints();
+  		 if(injury_counter == 3){
+  		 	$('div#text').text("Haydn's gone down! It seems like he got injured from that rash challenge!")
+  		 	$('div#text').off();
+  		 	$('#stadium').fadeOut(3000, function() {
+				window.location = 'ending1.html';
+			})
+  		 }
+  		 else{
+  		 	$('div#text').text("You got tackled heavily. A quick restart played.")
+  		 }
+  		}, 1000);
+	}
+
+	function stopTimer(){
+		clearTimeout(myTimer);
+	}
+
+	function events_handler(){
+		snd_stadium.play();
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').text("10th minute")
+		}
+		if(events_counter == 2){
+			$('div#text').text("England are having trouble breaking through Italy's fortress.")
+		}
+		if(events_counter == 3){
+			$('div#text').text("Suddenly a quick counter attack from Italy after England Midfielder lost the ball.")
+		}
+		if(events_counter == 4){
+			$('div#text').text("Chance for Italy to take the lead...")
+		}
+		if(events_counter == 5){
+			$('div#text').text("Great save by the goalkeeper!")
+		}
+		if(events_counter == 6){
+			$('div#text').text("25th minute")
+		}
+		if(events_counter == 7){
+			$('div#text').text("England desperately trying to clear the ball away from Italy's corner.")
+		}
+		if(events_counter == 8){
+			$('div#text').text("The ball lands to Haydn's feet.")
+		}
+		if(events_counter == 9){
+			$('img#dodge').show();
+			$('div#text').hide();
+			timer();
+		}
+		if(events_counter == 10){
+			$('div#text').text("The ball is cleared and gone out of play.")
+		}
+		if(events_counter == 11){
+			$('div#text').text("40th minute")
+		}
+		if(events_counter == 12){
+			$('div#text').text("England with the ball. Winger passes to Bob Haydn. ")
+		}
+		if(events_counter == 13){
+			$('div#text').text("Haydn seems to found space and decided to dribble through the opponents!")
+		}
+		if(events_counter == 14){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			localStorage.setItem('england_score',england_score);
+			localStorage.setItem('italy_score',italy_score);
+			$('div#text').text("An opportunity for Haydn to take the lead!")
+			$('#stadium').fadeOut(1500, function() {
+				window.location = 'italydribble.html';
+			})
+		}
+	}
+
+	$('img#dodge').click(function() {
+		stopTimer();
+		$('div#text').show();
+		$('img#dodge').hide();
+  		$('div#text').text("You dodge the incomming opponent and pass quickly.")
+	});
+
+	function updatePoints() {
+		$('#england').text(england_score);
+		$('#italy').text(italy_score);
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+	}
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="scoreboard">
+			<div id="home">ENGLAND [<span id="england"></span>]</div>
+			<div id="away">[<span id="italy"></span>] ITALY </div>
+		</div>
+		<img src="images/dodge.png" id="dodge">
+		<div id="text"> "Kickoff. England vs Italy. Semifinals"</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#news').hide(); 
+	$('#chatting').hide();
+	var events_counter = 0;
+	$('div#text').click(events_handler);
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('#news').show(); 
+			$('div#text').text("'Hmm... not much.'")
+		}
+		if(events_counter == 2){
+			$('div#text').text("'It just reports yesterday's match and England's Main Striker's injury. ")
+		}
+		if(events_counter == 3){
+			$('div#text').text("'While this may blow our chances, this may be a silver lining for me.'")
+		}
+		if(events_counter == 4){
+			$('div#text').text("'A chance for me to shine as a substitute or super sub.'")
+		}
+		if(events_counter == 5){
+			$('#news').hide(); 
+			$('div#text').text("'All right time to head for breakfast then training.'")
+		}
+		if(events_counter == 6){
+			$('div#person').text('Narrator')
+			$('div#text').text("But before that, a tutorial about energy and dilemma.")
+			$('#hotel').fadeOut(2500, function() {
+				window.location = 'dilemmatutorial.html';
+			})
+		}
+	}
+})
+</script>
+</head>
+<body>
+	<div id="hotel">
+		<img src="images/news1.jpg" id="news">
+		<img src="images/manager.png" id="chatting">
+		<div id="person"> Bob </div>
+		<div id="text"> "Let's see what's on today's news"</div>
+	</div>
+</body>
+</html>

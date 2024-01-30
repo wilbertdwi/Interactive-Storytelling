@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script src="hittest.js"></script>
+<script>
+$(document).ready(function() {
+	var snd_boo = new Audio('sounds/boo.mp3');
+	var snd_cheer = new Audio('sounds/cheer.mp3');
+	var succeed = 0;
+	$('div#text').hide();
+	$('#bob').css({
+		'top': 510,
+		'left': 100
+	})
+	$('#goal').css({
+		'top': 0,
+		'right': 0
+	})
+	$('#wall1').css({
+		'top': 400,
+		'left': 100
+	})
+	$('#wall2').css({
+		'top': 200,
+		'left': 225
+	})
+	$('#wall3').css({
+		'top': 150,
+		'left': 500
+	})
+	$(document).one('keydown', keyDown);
+
+	var change = {
+		87:{top:'-=3'},
+		83:{top:'+=3'},
+		65:{left:'-=3'},
+		68:{left:'+=3'},
+	}
+
+	var animation;
+	var going;
+
+	function keyDown(event){
+		$(document).one('keyup', keyUp);
+		if(event.keyCode==87||event.keyCode==83||event.keyCode==65||event.keyCode==68){
+			animation = change[event.keyCode];
+			if(event.keyCode==65){
+				$('#bob').css({transform:'scaleX(-1)'});
+			}
+			if(event.keyCode==68){
+				$('#bob').css({transform:'scaleX(1)'});
+			}
+			
+		}
+		
+		console.log(animation);
+		going = setInterval(keepGoing, 1);
+	}
+
+	function keyUp(){
+		clearInterval(going);
+		$(document).one('keydown', keyDown);
+	}
+
+
+	function keepGoing(){
+		$('#bob').css(animation);
+	}
+
+	$('#timerInner').animate({
+		width: 0
+	},{
+		easing: 'linear',
+		duration: 20000,
+		complete: function() {
+			snd_boo.play();
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			localStorage.setItem('succeed',succeed);
+			$('#timerInner').stop();
+			$('div#text').show();
+			$('div#text').text("Hadyn was too slow and the ball was cleared")
+			$('#stage').fadeOut(2000, function() {
+				window.location = 'germany2.html';
+			})
+		}
+	})
+
+	function collisionDetection(){
+		var hit = $('#bob').objectHitTest({"object":$('#dribble1'), "transparency": true});
+		var wall1 = $('#bob').objectHitTest({"object":$('#wall1'), "transparency": true});
+		var wall2 = $('#bob').objectHitTest({"object":$('#wall2'), "transparency": true});
+		var wall3 = $('#bob').objectHitTest({"object":$('#wall3'), "transparency": true});
+		if(hit){
+			snd_boo.play();
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			localStorage.setItem('succeed',succeed);
+			$('#timerInner').stop();
+			$('div#text').show();
+			$('div#text').text("The ball went out of play")
+			$('#stage').fadeOut(2000, function() {
+				window.location = 'germany2.html';
+			})
+		}
+		if(wall1){
+			snd_boo.play();
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			localStorage.setItem('succeed',succeed);
+			$('#timerInner').stop();
+			$('div#text').show();
+			$('div#text').text("Great tackle by defender")
+			$('#stage').fadeOut(2000, function() {
+				window.location = 'germany2.html';
+			})
+		}
+		if(wall2){
+			snd_boo.play();
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			localStorage.setItem('succeed',succeed);
+			$('#timerInner').stop();
+			$('div#text').show();
+			$('div#text').text("Great tackle by defender")
+			$('#stage').fadeOut(2000, function() {
+				window.location = 'germany2.html';
+			})
+		}
+		if(wall3){
+			snd_boo.play();
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			localStorage.setItem('succeed',succeed);
+			$('#timerInner').stop();
+			$('div#text').show();
+			$('div#text').text("Great tackle by defender")
+			$('#stage').fadeOut(2000, function() {
+				window.location = 'germany2.html';
+			})
+		}
+		var exit_hit = $('#bob').objectHitTest({"object":$('#goal'), "transparency": true});
+		if(exit_hit){
+			snd_cheer.play();
+			succeed = 1;
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			localStorage.setItem('succeed',succeed);
+			$('#timerInner').stop();
+			$('div#text').show();
+			$('#stage').fadeOut(2000, function() {
+				window.location = 'germany2.html';
+			})
+		}
+
+	}
+
+	var collision_interval = setInterval(collisionDetection, 50);
+
+})
+</script>
+</head>
+<body>
+	<div id="stage">
+		<div id="timerContainer">
+			<div id="timerInner"></div>
+		</div>
+		<img src="images/bob1.png" id="bob">
+		<img src="images/germany.png" id="wall1">
+		<img src="images/germany.png" id="wall2">
+		<img src="images/germany.png" id="wall3">
+		<img src="images/dribble2.png" id="dribble1">
+		<div id="goal"></div>
+		<div id="text">Haydn dribbled past his opponents with ease.</div>
+	</div>
+</body>
+</html>

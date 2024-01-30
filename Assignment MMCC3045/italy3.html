@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	var events_counter = 0;
+	var england_score = localStorage.getItem('england_score');
+	var italy_score = localStorage.getItem('italy_score');
+	var scored = localStorage.getItem('scored');
+	var snd_stadium = new Audio('sounds/match.mp3')
+	snd_stadium.loop = true;
+	var snd_foul = new Audio('sounds/foul.mp3');
+	var snd_cheer = new Audio('sounds/cheer.mp3');
+	var snd_boo = new Audio('sounds/boo.mp3');
+	updatePoints();
+	$('div#text').click(events_handler);
+	$('#away').css({
+		'background-color':'blue'
+	})
+
+	function events_handler(){
+		snd_stadium.play();
+		events_counter++;
+		if(events_counter == 1 && scored == 1){
+			england_score++;
+			updatePoints();
+			$('div#text').text("Great goal by Winger, brilliant assist by Hadyn!")
+		}
+		else if(events_counter == 1 && scored == 0){
+			$('div#text').text("What a waste! He should have done better than that.")
+		}
+		if(events_counter == 2){
+			$('div#text').text("65th minute")
+		}
+		if(events_counter == 3){
+			$('div#text').text("Substitution for England. Bob Haydn out, Backup Striker in.")
+		}
+		if(events_counter == 4){
+			$('div#text').text("75th minute")
+		}
+		if(events_counter == 5){
+			$('div#text').text("Great passing from England, they managed to slip through Italy's fortress.")
+		}
+		if(events_counter == 6){
+			snd_cheer.play();
+			$('div#text').text("A chance to shoot... GOAL!!!")
+		}
+		if(events_counter == 7){
+			england_score++;
+			updatePoints();
+			$('div#text').text("Great goal from the second-choice striker!")
+		}
+		if(events_counter == 8){
+			$('div#text').text("85th minute")
+		}
+		if(events_counter == 9){
+			$('div#text').text("Great direct passing from Italy, probably the last chance for the day.")
+		}
+		if(events_counter == 10){
+			$('div#text').text("The Italian midfielder tries a long shot...")
+		}
+		if(events_counter == 11 && england_score <= 1){
+			snd_boo.play();
+			italy_score++;
+			updatePoints();
+			$('div#text').text("What a screamer!!! Rooted at the top left corner!")
+		}
+		else if(events_counter == 11 && england_score >= 2){
+			$('div#text').text("Excellent save by the goalkeeper! That was heading top corner!")
+		}
+
+		if(events_counter == 12){
+			snd_foul.play();
+			$('div#text').text("Full Time. Referee has blow the whistle!")
+		}
+
+		if(events_counter == 13 && england_score > italy_score){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			$('div#text').text("England has won it! They are through the semi-finals, into the finals!")
+			$('#stadium').fadeOut(3000, function() {
+				window.location = 'italy4.html';
+			})
+		}
+
+		if(events_counter == 13 && england_score < italy_score){
+			$('div#text').text("Italy won the semi-finals! England were wasteful with their chances!")
+			$('#stadium').fadeOut(3000, function() {
+				window.location = 'ending2.html';
+			})
+		}
+	}
+
+
+	function updatePoints() {
+		$('#england').text(england_score);
+		$('#italy').text(italy_score);
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+	}
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="scoreboard">
+			<div id="home">ENGLAND [<span id="england"></span>]</div>
+			<div id="away">[<span id="italy"></span>] ITALY </div>
+		</div>
+		<div id="text"> "A chance for England to score!</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script src="hittest.js"></script>
+<script>
+$(document).ready(function() { 
+	var snd_kick = new Audio('sounds/kick.mp3');
+	var snd_boo = new Audio('sounds/boo.mp3');
+	var snd_cheer = new Audio('sounds/cheer.mp3');
+	var scored = 0;
+	var events_counter = 0;
+	var england_score = localStorage.getItem('england_score');
+	$('#target1').hide()
+	$('#target2').hide()
+	$('#target3').hide()
+	$('div#text').click(events_handler);
+	$('#ball').css({
+		'left': 50,
+		'bottom': 0
+	})
+	$('#defender1').css({
+		'left': 200,
+		'top': 300,
+		transform:'scaleX(-1)'
+	})
+
+	function updatePoints() {
+		$('#england').text(england_score);
+	}
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').hide();
+			$('img#ball').animate({
+				left:530,
+				top:400
+			},{
+				duration:1000,
+			});
+			$('img#bobshoot').animate({
+				top:350
+			},{
+				duration:1000,
+			});
+			$('#defender1').animate({
+				left:450
+			},{
+				duration:1000,
+			});
+			$('#target1').delay(1000).show(0);
+			$('#target2').delay(1000).show(0);
+			$('#target3').delay(1000).show(0);
+		}
+
+		$('#target1').click(function(){
+			snd_kick.play();
+			document.getElementById("bobshoot").src="images/shoot1.png";
+			$('#target1').hide()
+			$('#target2').hide()
+			$('#target3').hide()
+			$('#defender1').animate({
+				left:490,
+				top:220
+			},{
+				duration:200,
+			});
+			$('img#ball').animate({
+				left:490,
+				top:260
+			},{
+				duration:200,
+			});
+			$('div#text').delay(1000).show(0);
+			$('div#text').text('Great block by the defender!');
+		});
+
+		$('#target2').click(function(){
+			snd_kick.play();
+			document.getElementById("bobshoot").src="images/shoot1.png";
+			$('#target1').hide()
+			$('#target2').hide()
+			$('#target3').hide()
+			$('#defender1').animate({
+				left:490,
+				top:220
+			},{
+				duration:200,
+			});
+			$('#goalkeeper').animate({
+				left:610,
+			},{
+				duration:200,
+			});
+			$('img#ball').animate({
+				left:600,
+				top:80
+			},{
+				duration:500,
+			});
+			$('div#text').delay(1000).show(0);
+			$('div#text').text('The goalkeeper blundered it!!!');
+			scored = 1;
+		});
+
+		$('#target3').click(function(){
+			snd_kick.play();
+			document.getElementById("bobshoot").src="images/shoot1.png";
+			$('#target1').hide()
+			$('#target2').hide()
+			$('#target3').hide()
+			$('#defender1').animate({
+				left:490,
+				top:220
+			},{
+				duration:200,
+			});
+			$('#goalkeeper').animate({
+				left:650,
+			},{
+				duration:200,
+			});
+			$('img#ball').animate({
+				left:710,
+				top:80
+			},{
+				duration:500,
+			});
+			$('div#text').delay(1000).show(0);
+			$('div#text').text('GOAL!!!!');
+			scored = 1;
+		});
+
+		if(events_counter == 2 && scored == 1){
+			england_score = 4;
+			updatePoints();
+			localStorage.setItem('england_score',england_score);
+			snd_cheer.play();
+			$('div#text').text('Great goal by Haydn, assist by Midfielder');
+			$('#shooting').fadeOut(3000, function() {
+				window.location = 'japan2.html';
+			})
+			console.log(england_score);
+		}
+		else if(events_counter == 2){
+			localStorage.setItem('england_score',england_score);
+			snd_boo.play();
+			$('div#text').text('A wasted opportunity by Haydn');
+			$('#shooting').fadeOut(3000, function() {
+				window.location = 'japan2.html';
+			})
+			console.log(england_score);
+		}
+	}
+})
+</script>
+</head>
+<body>
+	<div id="shooting">
+		<img src="images/aim1.png" id="bobshoot">
+		<img src="images/keeper1.png" id="goalkeeper">
+		<img src="images/japan.png" id="defender1">
+		<img src="images/ball.png" id="ball">
+		<img src="images/target.png" id="target1">
+		<img src="images/target.png" id="target2">
+		<img src="images/target.png" id="target3">
+		<div id="text">Midfielder passes to Haydn!</div>
+	</div>
+</body>
+</html>

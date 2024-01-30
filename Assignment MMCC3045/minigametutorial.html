@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+	$('#chatting').hide();
+	$('.tutorial1').hide();
+	$('.tutorial2').hide();
+	$('#dodge').hide();
+	var events_counter = 0;
+
+	$('div#text').click(events_handler);
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').text('Dribble minigame')
+		}
+
+		if(events_counter == 2){
+			$('.tutorial1').show();
+			$('div#text').text('Use WASD keys to move. W - Up. A - Left. S - Down. D - Right.')
+		}
+
+		if(events_counter == 3){
+			$('div#text').text('The goal is to reach the goal which is the red box without touching anything or running out of time.')
+		}
+
+		if(events_counter == 4){
+			$('div#text').text('Running out of time, touching opponents or the wall of the map will lead to interception and missed chance.')
+		}
+
+
+		if(events_counter == 5){
+			$('.tutorial1').hide();
+			$('div#text').text('Shooting minigame')
+		}
+
+		if(events_counter == 6){
+			$('.tutorial2').show();
+			$('div#text').text('Simply click one of the three targets when they appear to shoot/pass the ball at that direction.')
+		}
+
+		if(events_counter == 7){
+			$('div#text').text('Watch the opponents movements to predict where they will move when you kick the ball.')
+		}
+
+		if(events_counter == 8){
+			$('.tutorial2').hide();
+			$('div#text').text('At least one of the targets will definitely lead to a goal.')
+		}
+
+		if(events_counter == 9){
+			$('div#text').text('Dodge minigame')
+		}
+
+		if(events_counter == 10){
+			$('#dodge').show();
+			$('div#text').text('During commentaries during the match, a dodge button may appear out of nowhere.')
+		}
+
+		if(events_counter == 11){
+			$('div#text').text('Click the button before the hidden timer runs out.')
+		}
+
+		if(events_counter == 12){
+			$('div#text').text('Failure to do so will increase your injury counter which will be explained later in the game.')
+		}
+
+		if(events_counter == 13){
+			$('#dodge').hide();
+			$('div#text').text('That is all for the minigame tutorial. Note: There is no timer for the training dribble so you have as many chances only in that dribble minigame.')
+		}
+
+		if(events_counter == 14){
+			$('div#person').text('Coach')
+			$('#chatting').show();
+			$('div#text').text(" 'Come on boys, training is starting now! ")
+		}
+
+		if(events_counter == 15){
+			$('div#text').text(" 'Time for dribble training then shooting training.' ")
+			$('#training').fadeOut(2000, function() {
+				window.location = 'dribble.html';
+			})
+		}
+	}
+
+})
+</script>
+</head>
+<body>
+	<div id="training">
+		<img src="images/dribbleexample.png" class="tutorial1" id="tutorial">
+		<img src="images/shootingexample.jpg" class="tutorial2" id="tutorial">
+		<img src="images/dodge.png" id="dodge">
+		<img src="images/coach.png" id="chatting">
+		<div id="person"> Narrator </div>
+		<div id="text"> Minigame tutorial</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+	var events_counter = 0;
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	var snd_hotel = new Audio('sounds/hotel.mp3');
+	snd_hotel.loop = true;
+	updatePoints();
+	$('#laptop').hide()
+	$('div#rest').hide()
+	$('div#research').hide()
+	$('div#talk').hide()
+	$('#chatting').hide();
+
+	$('div#text').click(events_handler);
+
+	function events_handler(){
+		snd_hotel.play();
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').hide()
+			$('div#person').hide()
+			$('div#rest').show()
+			$('div#research').show()
+			$('div#talk').show()
+		}
+
+		if(events_counter == 11){
+			if(energy_points<=3){
+				energy_points++;
+				energy_points++;
+				$('div#text').text('You restored more energy than usual. (+2 energy points)')
+			}
+			else if(energy_points==4){
+				energy_points++;
+				$('div#text').text('You restored energy. (+1 energy points)')
+			}
+			else{
+				$('div#text').text('Your energy is full.')
+			}
+			updatePoints();
+		}
+		if(events_counter == 12){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			$('div#person').text('Bob')
+			$('div#text').text(" 'Hopefully I can get a chance to play...zzz.' ")
+			$('#hotel').fadeOut(2000, function() {
+				window.location = 'match2.html';
+			})
+		}
+
+
+		if(events_counter == 21){
+			$('div#text').text("Seems like we are against Italy. According to the news and comments, it seems that Italy have decent strikers but they also have world class defenders meaning every chance is vital.")
+		}
+
+		if(events_counter == 22){
+			$('div#text').text("It also seems that their goalkeeper is good but lack in communicating with his defence.")
+		}
+
+		if(events_counter == 23){
+			$('#laptop').hide();
+			$('div#text').text("After staying up a bit late reading the news, you went to sleep right away.")
+		}
+
+		if(events_counter == 24){
+			if(energy_points<=4){
+				energy_points++;
+				$('div#text').text('You restored energy. (+1 energy points)')
+			}
+			else{
+				$('div#text').text('Your energy is full.')
+			}
+			updatePoints();
+		}
+		if(events_counter == 25){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			$('div#person').text('Bob')
+			$('div#text').text(" 'Hopefully I can get a chance to play...zzz.' ")
+			$('#hotel').fadeOut(2000, function() {
+				window.location = 'match2.html';
+			})
+		}
+
+		if(events_counter == 31){
+			$('#chatting').show();
+			$('div#hotel').css({
+				'background-image': 'url(images/physioroom.jpg)'
+			})
+			$('div#text').text(" You consulted with the physio about your physical and injury concerns. ")
+		}
+		if(events_counter == 32){
+			if(injury_counter == 0){
+				$('div#text').text('Your legs are still in top condition.')
+			}
+			else{
+				injury_counter--
+				$('div#text').text(" With consultation and treatment, your legs felt less pain and strain. (-1 injury point).")
+				updatePoints();
+			}
+		}
+		if(events_counter == 33){
+		
+			$('#chatting').hide();
+			$('div#hotel').css({
+				'background-image': 'url(images/hotel.jpg)'
+				})
+			$('div#text').text("After staying up a bit late, you went to sleep right away.")
+		}
+
+		if(events_counter == 34){
+			if(energy_points<=4){
+				energy_points++;
+				$('div#text').text('You restored energy. (+1 energy points)')
+			}
+			else{
+				$('div#text').text('Your energy is full.')
+			}
+			updatePoints();
+		}
+		if(events_counter == 35){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			$('div#person').text('Bob')
+			$('div#text').text(" 'Hopefully I can get a chance to play...zzz.' ")
+			$('#hotel').fadeOut(2000, function() {
+				window.location = 'match2.html';
+			})
+		}
+	}
+
+	$('div#rest').click(function() {
+		$('div#rest').hide();
+		$('div#research').hide();
+		$('div#talk').hide();
+		$('div#text').show();
+		$('div#text').text('You decided to go to sleep early');
+		$('div#person').show();
+		$('div#person').text('Narrator');
+		events_counter = 10;
+	});
+
+	$('div#research').click(function() {
+		$('#laptop').show();
+		$('div#rest').hide();
+		$('div#research').hide();
+		$('div#talk').hide();
+		$('div#text').show();
+		$('div#text').text('You decided to read the news to learn more about the opponents.');
+		$('div#person').show();
+		$('div#person').text('Narrator');
+		events_counter = 20;
+	});
+
+	$('div#talk').click(function() {
+	
+		$('div#rest').hide();
+		$('div#research').hide();
+		$('div#talk').hide();
+		$('div#text').show();
+		$('div#text').text('You decided to head down to the physio room.');
+		$('div#person').show();
+		$('div#person').text('Narrator');
+		events_counter = 30;
+	});
+
+	function updatePoints() {
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+
+
+	}
+})
+</script>
+</head>
+<body>
+	<div id="hotel">
+		<img src="images/laptop2.png" id="laptop">
+		<img src="images/physio.png" id="chatting">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="person"> Bob </div>
+		<div id="text"> "Training done. Seems like second-choice striker was fit today. What should I do next?"</div>
+		<div id="rest">Rest Early</div>
+		<div id="research">Read more news about opponents</div>
+		<div id="talk">Consult with physio</div>
+		
+	</div>
+</body>
+</html>

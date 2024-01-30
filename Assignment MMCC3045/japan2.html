@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#chatting').hide();
+	$('#person').hide();
+	$('.badnews').hide();
+	$('.goodnews').hide();
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	var events_counter = 0;
+	var england_score = localStorage.getItem('england_score');
+	var snd_stadium = new Audio('sounds/match.mp3')
+	snd_stadium.loop = true;
+	var snd_foul = new Audio('sounds/foul.mp3');
+	var myTimer;
+	updatePoints();
+	$('div#text').click(events_handler);
+
+	function events_handler(){
+		
+		events_counter++;
+		if(events_counter == 1 && england_score == 4){
+			snd_stadium.play();
+			$('div#text').text("What a goal by Haydn! His first World Cup goal during his debut no less.")
+		}
+		else if(events_counter == 1 && england_score == 3){
+			snd_stadium.play();
+			$('div#text').text("A wasted opportunity by Haydn. He should have done better than that.")
+		}
+		if(events_counter == 2){
+			$('div#text').text("90th minute.")
+		}
+		if(events_counter == 3){
+			snd_foul.play();
+			$('div#text').text("Full Time, referee blows the whistle.")
+		}
+		if(events_counter == 4 && england_score == 4){
+			$('div#text').text("England 4, Japan 1. England trashed Japan in the quarter finals.")
+		}
+		else if(events_counter == 4 && england_score == 3){
+			$('div#text').text("England 3, Japan 1. England defeated Japan comfortably.")
+		}
+		if(events_counter == 5){
+			$('#scoreboard').hide();
+			snd_stadium.pause();
+			$('div#stadium').css({
+				'background-image': 'url(images/lockerroom.jpg)'
+			})
+			$('#person').show();
+			$('div#text').text("Back in the locker room.")
+		}
+		if(events_counter == 6){
+			$('#chatting').show();
+			$('div#person').text('Manager')
+			$('div#text').text("Well done everyone, take a rest for today and get ready for training tomorrow.")
+		}
+		if(events_counter == 7){
+			$('div#text').text("By the way Bob, judging from today's performance...")
+		}
+		if(events_counter == 8 && england_score == 4){
+			$('div#text').text("You did a fine job scoring your first goal. Well done.")
+		}
+		else if(events_counter == 8 && england_score == 3){
+			$('div#text').text("You should have converted that chance. Expect extra drills for you during tomorrow's training.")
+		}
+		if(events_counter == 9){
+			$('div#text').text("All right that's it for today, after interviewing with the news people, head back to the hotel.")
+		}
+		if(events_counter == 10){
+			$('#chatting').hide();
+			$('div#stadium').css({
+				'background-image': 'url(images/hotel.jpg)'
+			})
+			$('div#person').text('Narrator')
+			$('div#text').text("The next day.")
+		}
+		if(events_counter == 11){
+			$('div#person').text('Bob')
+			$('div#text').text("Let's see what's in the news.")
+		}
+		if(events_counter == 12 && england_score == 4){
+			$('.goodnews').show();
+			$('div#text').text("I'm feeling good today.")
+		}
+		if(events_counter == 12 && england_score == 3){
+			$('.badnews').show();
+			energy_points--
+			updatePoints();
+			$('div#text').text("Darn, I need that extra training for yesterday's mishap. (-1 energy points)")
+		}
+		if(events_counter == 13){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			$('div#text').text(" Right, enough self-reflection, I'm off now. ")
+			$('#stadium').fadeOut(2000, function() {
+				window.location = 'hotel3.html';
+			})
+		}
+	}
+
+
+	function updatePoints() {
+		$('#england').text(england_score);
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+	}
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<img src="images/manager.png" id="chatting">
+		<img src="images/badnews2.jpg" class="badnews" id="news">
+		<img src="images/goodnews2.jpg" class="goodnews" id="news">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="scoreboard">
+			<div id="home">ENGLAND [<span id="england"></span>]</div>
+			<div id="away">[1] JAPAN </div>
+		</div>
+		<div id="person"> Narrator </div>
+		<div id="text"> "A chance for Bob Haydn to score!"</div>
+	</div>
+</body>
+</html>

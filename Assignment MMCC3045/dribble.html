@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script src="hittest.js"></script>
+<script>
+$(document).ready(function() { 
+	$('div#text').hide();
+	
+	$(document).one('keydown', keyDown);
+
+	var change = {
+		87:{top:'-=3'},
+		83:{top:'+=3'},
+		65:{left:'-=3'},
+		68:{left:'+=3'},
+	}
+
+	var animation;
+	var going;
+
+	function keyDown(event){
+		$(document).one('keyup', keyUp);
+		if(event.keyCode==87||event.keyCode==83||event.keyCode==65||event.keyCode==68){
+			animation = change[event.keyCode];
+			if(event.keyCode==65){
+				$('#bob').css({transform:'scaleX(-1)'});
+			}
+			if(event.keyCode==68){
+				$('#bob').css({transform:'scaleX(1)'});
+			}
+			
+		}
+		
+		console.log(animation);
+		going = setInterval(keepGoing, 1);
+	}
+
+	function keyUp(){
+		clearInterval(going);
+		$(document).one('keydown', keyDown);
+	}
+
+
+	function keepGoing(){
+		$('#bob').css(animation);
+	}
+
+	function collisionDetection(){
+		var hit = $('#bob').objectHitTest({"object":$('#dribble1'), "transparency": true});
+		var wall1 = $('#bob').objectHitTest({"object":$('#wall1'), "transparency": true});
+		var wall2 = $('#bob').objectHitTest({"object":$('#wall2'), "transparency": true});
+		if(hit){
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			setTimeout(resetbob, 1500);
+		}
+		if(wall1){
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			setTimeout(resetbob, 1500);
+		}
+		if(wall2){
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			setTimeout(resetbob, 1500);
+		}
+		var exit_hit = $('#bob').objectHitTest({"object":$('#goal'), "transparency": true});
+		if(exit_hit){
+			$('#bob').hide();
+			clearInterval(collision_interval);
+			$('div#text').show();
+			$('#stage').fadeOut(2000, function() {
+				window.location = 'score.html';
+			})
+		}
+
+	}
+
+	var collision_interval = setInterval(collisionDetection, 50);
+
+	function resetbob(){
+		$('#bob').css({
+			top:325,
+			left:50
+		}).show();
+		collision_interval = setInterval(collisionDetection, 50);
+	}
+
+})
+</script>
+</head>
+<body>
+	<div id="stage">
+		<img src="images/bob1.png" id="bob">
+		<img src="images/wall.png" id="wall1">
+		<img src="images/wall.png" id="wall2">
+		<img src="images/dribble1.png" id="dribble1">
+		<div id="goal"></div>
+		<div id="text">Dribble Success</div>
+	</div>
+</body>
+</html>

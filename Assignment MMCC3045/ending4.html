@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+
+	var events_counter = 0;
+	var snd_cheer = new Audio('sounds/cheer.mp3');
+	$('div#text').click(events_handler);
+	$('div#start').hide();
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			snd_cheer.play();
+			$('div#stadium').css({
+				'background-image': 'url(images/ending4.jpg)'
+			})
+			$('div#text').text("Everyone was ecstatic. England fans loudly cheering your team")
+		}
+		if(events_counter == 2){
+			$('div#text').text("Everyone was celebrating as your Captain lifts the World Cup with England.")
+		}
+		if(events_counter == 3){
+			$('div#text').text("After all, we finally won finally won it.")
+		}
+		if(events_counter == 4){
+			$('div#text').text("When you returned home, media and fans lauded you as a cup hero.")
+		}
+		if(events_counter == 5){
+			$('div#person').text('Bob')
+			$('div#text').text("'Finally, my World Cup journey is over. Who knows when I will ever get another chance again.'")
+		}
+		if(events_counter == 6){
+			$('div#text').text("'Maybe I will just focus on my club instead.'")
+		}
+		if(events_counter == 7){
+			$('div#person').text('Narrator')
+			$('div#text').text("The end")
+		}
+		if(events_counter == 8){
+			$('div#text').hide()
+			$('div#person').hide()
+			$('div#start').show()
+		}
+
+		$('div#start').click(function() {
+			$('#stadium').fadeOut(2000, function() {
+				window.location = 'index.html';
+			})
+		})
+	}
+
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="person"> Narrator </div>
+		<div id="text">You won the World Cup.</div>
+		<div id="start">Retry?</div>
+	</div>
+</body>
+</html>

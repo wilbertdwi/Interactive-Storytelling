@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	var events_counter = 0;
+	var england_score = localStorage.getItem('england_score');
+	var germany_score = localStorage.getItem('germany_score');
+	var scored = localStorage.getItem('scored');
+	var snd_stadium = new Audio('sounds/match.mp3')
+	snd_stadium.loop = true;
+	var snd_foul = new Audio('sounds/foul.mp3');
+	var snd_cheer = new Audio('sounds/cheer.mp3');
+	var snd_boo = new Audio('sounds/boo.mp3');
+	updatePoints();
+	$('div#text').click(events_handler);
+	$('img#dodge').hide();
+	$('#home').css({
+		'background-color':'#990000',
+		'color':'white'
+	})
+	$('#away').css({
+		'background-color':'white',
+		'color':'black'
+	})
+
+	function events_handler(){
+		snd_stadium.play();
+		events_counter++;
+		if(events_counter == 1 && scored == 1){
+			snd_cheer.play();
+			england_score++;
+			updatePoints();
+			$('div#text').text("HE'S DONE IT! ABSOLUTELY INCREDIBLE!")
+		}
+		else if(events_counter == 1 && scored == 0){
+			$('div#text').text("Brilliant defending by Germany!")
+			events_counter = 10;
+		}
+		if(events_counter == 2){
+			snd_foul.play();
+			$('div#text').text("Full time that's the final whistle!")
+		}
+		if(events_counter == 3){
+			$('div#text').text("England has finally won it thanks to Bob Haydn!! ")
+			$('#stadium').fadeOut(3000, function() {
+				window.location = 'ending4.html';
+			})
+		}
+		if(events_counter == 11){
+			$('div#text').text("A quick counter attack by Germany as England's defence are nowhere in the back.")
+		}
+		if(events_counter == 12){
+			$('div#text').text("England's defenders are way out of position and exhausted to run back.")
+		}
+		if(events_counter == 13){
+			$('div#text').text("They quickly pass it to Germany's striker and he dribbles unguarded.")
+		}
+		if(events_counter == 14){
+			$('div#text').text("England's keeper charges out but the striker easily runs around the keeper!")
+		}
+		if(events_counter == 15){
+			snd_boo.play();
+			germany_score++;
+			updatePoints();
+			$('div#text').text("GOALLL!! THAT'S HIS HATTRICK FOR THE WORLD CUP FINAL! What a day for him to remember!")
+		}
+		if(events_counter == 16){
+			snd_foul.play();
+			$('div#text').text("Full time that's the final whistle!")
+		}
+		if(events_counter == 17){
+			$('div#text').text("Germany has won the World Cup thanks to their hat trick hero!")
+			$('#stadium').fadeOut(3000, function() {
+				window.location = 'ending3.html';
+			})
+		}
+		
+	}
+
+	function updatePoints() {
+		$('#england').text(england_score);
+		$('#germany').text(germany_score);
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+	}
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="scoreboard">
+			<div id="home">ENGLAND [<span id="england"></span>]</div>
+			<div id="away">[<span id="germany"></span>] GERMANY </div>
+		</div>
+		<img src="images/dodge.png" id="dodge">
+		<div id="text"> "Last chance for England to win it!...</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	var events_counter = 0;
+	var england_score = localStorage.getItem('england_score');
+	var germany_score = localStorage.getItem('germany_score');
+	var succeed = localStorage.getItem('succeed');
+	var snd_stadium = new Audio('sounds/match.mp3')
+	snd_stadium.loop = true;
+	var snd_foul = new Audio('sounds/foul.mp3');
+	var snd_cheer = new Audio('sounds/cheer.mp3');
+	var snd_boo = new Audio('sounds/boo.mp3');
+	var myTimer;
+	updatePoints();
+	$('div#text').click(events_handler);
+	$('img#dodge').hide();
+	$('#home').css({
+		'background-color':'#990000',
+		'color':'white'
+	})
+	$('#away').css({
+		'background-color':'white',
+		'color':'black'
+	})
+	function timer() {
+  		myTimer = setTimeout(function(){
+  		snd_foul.play();
+  		$('img#dodge').hide();
+  		 $('div#text').show();
+  		 injury_counter++;
+  		 updatePoints();
+  		 if(injury_counter == 3){
+  		 	$('div#text').text("Haydn's gone down! It seems like he got injured from that rash challenge!")
+  		 	$('div#text').off();
+  		 	$('#stadium').fadeOut(3000, function() {
+				window.location = 'ending1.html';
+			})
+  		 }
+  		 else{
+  		 	$('div#text').text("You got tackled heavily. A quick restart played.")
+  		 }
+  		}, 750);
+	}
+
+	function stopTimer(){
+		clearTimeout(myTimer);
+	}
+
+	function events_handler(){
+		snd_stadium.play();
+		events_counter++;
+		if(events_counter == 1 && succeed == 1){
+			$('div#text').text("Fancy footwork from Haydn as he dribbles past Germany!")
+		}
+		else if(events_counter == 1 && succeed == 0){
+			$('div#text').text("Germany easily beats Haydn, what a wasted opportunity.")
+			events_counter = 10;
+		}
+		if(events_counter == 2){
+			$('div#text').text("He quickly through pass to the Winger as Germany's defence tries to catch up.")
+		}
+		if(events_counter == 3){
+			snd_cheer.play();
+			$('div#text').text("Winger shoots...he SCORES!!! Struck at the top corner!")
+		}
+		if(events_counter == 4){
+			england_score++;
+			updatePoints();
+			$('div#text').text("Great goal by Winger assist by Bob Haydn!")
+			events_counter = 10;
+		}
+		if(events_counter == 11){
+			$('div#text').text("50th minute")
+		}
+		if(events_counter == 12){
+			$('div#text').text("Germany are still dominating possession as the German midfielders kept passing around England's half.")
+		}
+		if(events_counter == 13){
+			$('div#text').text("A breakthrough pass from Germany reaches to the feet of the german striker.")
+		}
+		if(events_counter == 14){
+			snd_boo.play();
+			$('div#text').text("He shoots! GOAL!!! Pick that one out! Curled top bin!")
+		}
+		if(events_counter == 15){
+			germany_score++;
+			updatePoints();
+			$('div#text').text("Magnificent finish from the german striker. That's two goals for him now.")
+		}
+		if(events_counter == 16){
+			$('div#text').text("60th minute")
+		}
+		if(events_counter == 17){
+			$('div#text').text("England are playing around the back to find an opening in Germany's defence")
+		}
+		if(events_counter == 18){
+			$('div#text').text("Haydn receives the pass and looks up.")
+		}
+		if(events_counter == 19){
+			$('img#dodge').show();
+			$('div#text').hide();
+			timer();
+		}
+		if(events_counter == 20){
+			$('div#text').text("The ball is cleared and gone out of play.")
+		}
+		if(events_counter == 21){
+			$('div#text').text("65th minute")
+		}
+		if(events_counter == 22){
+			$('div#text').text("Germany has been dominating this match but a lapse in concentration gave the ball away to England")
+		}
+		if(events_counter == 23){
+			$('div#text').text("Midfielder quickly passes to the Winger to play down the wing.")
+		}
+		if(events_counter == 24){
+			$('div#text').text("Winger cuts back and finds Haydn.")
+		}
+		if(events_counter == 25){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			localStorage.setItem('england_score',england_score);
+			localStorage.setItem('germany_score',germany_score);
+			$('div#text').text("A chance for England to score!")
+			$('#stadium').fadeOut(1500, function() {
+				window.location = 'germanyscore1.html';
+			})
+		}
+	}
+
+	$('img#dodge').click(function() {
+		stopTimer();
+		$('div#text').show();
+		$('img#dodge').hide();
+  		$('div#text').text("You dodge the incomming opponent and pass quickly.")
+	});
+
+	function updatePoints() {
+		$('#england').text(england_score);
+		$('#germany').text(germany_score);
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+	}
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="scoreboard">
+			<div id="home">ENGLAND [<span id="england"></span>]</div>
+			<div id="away">[<span id="germany"></span>] GERMANY </div>
+		</div>
+		<img src="images/dodge.png" id="dodge">
+		<div id="text"> "Haydn seems to found space and decided to dribble through the opponents!"</div>
+	</div>
+</body>
+</html>

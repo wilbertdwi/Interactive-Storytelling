@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+	var events_counter = 0;
+	var energy_points = 3;
+	var injury_counter = 1;
+	var snd_hotel = new Audio('sounds/hotel.mp3');
+	snd_hotel.loop = true;
+	updatePoints();
+	$('div#research').hide()
+
+	$('div#text').click(events_handler);
+
+	function events_handler(){
+		snd_hotel.play();
+		events_counter++;
+		console.log(events_counter)
+		if(events_counter == 1){
+			$('div#text').text("Energy Tutorial. In the top bar there's your energy bar and your injury counter.")
+		}
+		if(events_counter == 2){
+			$('div#text').text("Energy bar is to determine how much energy you have. If you have little energy before the match, you will start in the bench instead of being in the starting 11. Playing full match uses 3 energy while being a substitute uses 1 or 2 energy depending on the situation.")
+		}
+		if(events_counter == 3){
+			$('div#text').text("The injury counter is to indicate how many times Bob received a harsh tackle. One harsh tackle equals one injury counter.If the injury counter reaches max or in this case 3, Bob will get injured and will be out for the whole tournament, which will result in a game over.")
+		}
+		if(events_counter == 4){
+			$('div#text').text("You will start having 3 energy points, and 1 injury counter. You got a sprain during the upcoming training.")
+		}
+		if(events_counter == 5){
+			$('div#text').text("Next is the Dilemma Tutorial.")
+		}
+		if(events_counter == 6){
+			$('div#research').show()
+			$('div#text').text("Dilemmas occur when the text box disappears and multiple buttons appear in the middle of the screen like the example above.")
+		}
+		if(events_counter == 7){
+			$('div#text').text("Press one of the buttons to confirm which choice you made (The one above is just an example). Be careful, each choice have benefits or consequences that can affect your energy points or injury counters.")
+		}
+		if(events_counter == 7){
+			$('div#research').hide()
+			$('div#text').text("That's it for this tutorial. Now continuing where we left off... it's training time")
+		}
+		if(events_counter == 8){
+			$('div#person').text('Bob')
+			$('div#text').text(" 'Alright, time to head to the training ground.' ")
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			$('#hotel').fadeOut(3000, function() {
+				window.location = 'hotel2.html';
+			})
+		}
+	}
+
+	function updatePoints() {
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+
+
+	}
+})
+</script>
+</head>
+<body>
+	<div id="hotel">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="research">Read more news about opponents</div>
+		<div id="person"> Narrator </div>
+		<div id="text"> Dilemma and energy tutorial.</div>
+	</div>
+</body>
+</html>

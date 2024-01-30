@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+	var events_counter = 0;
+	var snd_foul = new Audio('sounds/foul.mp3');
+	$('#chatting').hide();
+
+	$('div#text').click(events_handler);
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').text("'Besides, I am going to be in the bench anyways. I am just a third-rate striker after all. Oh well.'")
+		}
+		if(events_counter == 2){
+			$('div#text').text("'Group stages is also over. Guess I'm destined to sit at the bench for the remainder of this tournament.'")
+		}
+		if(events_counter == 3){
+			$('div#text').text("'Probably need a miracle for me to play. Oh well off to bed.'")
+		}
+		if(events_counter == 4){
+			$('div#person').hide()
+			$('div#text').hide()
+			$('#hotel').fadeOut(1000, function() {
+				
+			})
+			$('#hotel').fadeIn(1000, function() {
+				$('div#person').show()
+				$('div#text').show()
+				$('div#text').text("'Right, time for breakfast then head to the bus.'")
+			})
+		}
+		if(events_counter == 5){
+			$('div#person').text('Narrator')
+			$('div#text').text("After you finished eating breakfast, you prepare your equipments and head to the bus for the match.")
+		}
+		if(events_counter == 6){
+			$('div#hotel').css({
+				'background-image': 'url(images/lockerroom.jpg)'
+			})
+			$('#chatting').show()
+			$('div#text').text("Today's match is Round-16 against Algeria.")
+		}
+		if(events_counter == 7){
+			$('div#text').text("As expected, you are in the bench today.")
+		}
+		if(events_counter == 8){
+			$('div#text').text("After a group huddle with your teammates and a small pep talk, your team enters the pitch.")
+		}
+		if(events_counter == 9){
+			$('#chatting').hide()
+			$('div#text').text("The starting eleven goes to the pitch while the subtitutes, including you, sat at the bench.")
+		}
+		if(events_counter == 10){
+			$('div#person').hide()
+			$('div#text').hide()
+				$('div#hotel').css({
+				'background-image': 'url(images/stadium.jpg)'
+				})
+				$('div#person').show()
+				$('div#text').show()
+				$('div#text').text("Later in the match...")
+		}
+		if(events_counter == 11){
+			$('div#text').text("75th minute. Your team is winning 2-0 with the main striker scoring both of the goals.")
+		}
+		if(events_counter == 12){
+			$('div#text').text("England's main striker skillfully dribble past opponents when suddenly...")
+		}
+		if(events_counter == 13){
+			snd_foul.play();
+			$('div#text').text("A nasty tackle from behind the striker!")
+		}
+		if(events_counter == 14){
+			$('div#text').text("You, your teammates, every England fan and the manager watch in horror as your main striker struggle in pain.")
+		}
+		if(events_counter == 15){
+			$('#chatting').show()
+			document.getElementById("chatting").src="images/physio.png";
+			$('div#text').text("The physio entered the field quickly and checked on the striker. They concluded that he is injured and needs to be stretchered off the field.")
+		}
+		if(events_counter == 16){
+			$('#chatting').hide();
+			document.getElementById("chatting").src="images/manager.png";
+			$('div#text').text("The manager quickly substitute in the second-rate striker and hoped that the injury is not serious.")
+		}
+		if(events_counter == 17){
+			$('div#text').text("The match progressed and in the end England won 3-0 with the second-rate striker scoring the last goal.")
+		}
+		if(events_counter == 18){
+			$('div#hotel').css({
+				'background-image': 'url(images/lockerroom.jpg)'
+				})
+			$('#chatting').show()
+			$('div#text').text("As you head back and discussed the current match, everyone, especially the manager around seems to be worried or nervous.")
+		}
+		if(events_counter == 19){
+			document.getElementById("chatting").src="images/physio.png";
+			$('div#text').text("Few minutes later, the physio enters the locker room and announced that the main striker is unavailable for the remainder of the tournament.")
+		}
+		if(events_counter == 20){
+			$('div#text').text("Everyone's mood dampens as they hear the sad news. After receiving the bad news, they start heading back to the bus.")
+		}
+		if(events_counter == 21){
+			$('#chatting').hide();
+			$('div#hotel').css({
+				'background-image': 'url(images/hotel.jpg)'
+				})
+			$('div#text').text("After reaching your room, you decided to process everyhting what happened today and rest for the day.")
+		}
+		if(events_counter == 22){
+			$('div#person').text('Bob')
+			$('div#text').text(" 'Tomorrow's going to be a busy day' ")
+			$('#hotel').fadeOut(3000, function() {
+				window.location = 'day2.html';
+			})
+		}
+
+	}
+})
+</script>
+</head>
+<body>
+	<div id="hotel">
+		<img src="images/manager.png" id="chatting">
+		<div id="person"> Bob </div>
+		<div id="text"> "Well I'm tired from that training, might as well sleep early cause I got nothing to do."</div>
+	</div>
+</body>
+</html>

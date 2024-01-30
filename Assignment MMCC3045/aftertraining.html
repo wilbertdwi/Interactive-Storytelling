@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+
+	var events_counter = 0;
+
+	$('div#text').click(events_handler);
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').text("'You are allowed to do whatever you want after this. However, you guys are only allowed in the vicinity of the hotel only!'")
+		}
+		if(events_counter == 2){
+			$('div#text').text("'Good? You guys are dismissed for the day.'")
+		}
+		if(events_counter == 3){
+			$('div#person').text('Team')
+			$('div#text').text('"OK"')
+			$('#training').fadeOut(2000, function() {
+				window.location = 'hotel1.html';
+			})
+		}
+	}
+})
+</script>
+</head>
+<body>
+	<div id="training">
+		<div id="person"> Coach </div>
+		<div id="text">"That's it for today!"</div>
+	</div>
+</body>
+</html>

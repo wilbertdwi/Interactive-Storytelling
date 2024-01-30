@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#chatting').hide();
+	var events_counter = 0;
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	var snd_stadium = new Audio('sounds/match.mp3')
+	snd_stadium.loop = true;
+	updatePoints();
+	$('div#text').click(events_handler);
+
+	function updatePoints() {
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+	}
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+		$('div#hotel').css({
+				'background-image': 'url(images/lockerroom.jpg)'
+		})
+			$('#chatting').show();
+			$('div#person').text('Manager')
+			$('div#text').text("We are against Germany today.")
+		}
+		if(events_counter == 2){
+			$('div#text').text("How perfectly fitting, fighting against our bitter rivals in a World Cup final no less.")
+		}
+		if(events_counter == 3){
+			$('div#text').text("As you guys all know, they are one of the world's best international team.")
+		}
+		if(events_counter == 4){
+			$('div#text').text("Below us of course ha ha ha...")
+		}
+		if(events_counter == 5){
+			$('div#text').text("Anyways, here's the plan and starting lineup...")
+		}
+		if(events_counter == 6 && energy_points >= 3){
+			$('div#text').text("...Bob you will be in the starting eleven, give youself the best out there...")
+		}
+		else if(events_counter == 6 && energy_points <= 2){
+			$('div#text').text("...Bob you will start at the bench, you do not seem to be 100% fit...")
+			events_counter = 20;
+		}
+		if(events_counter == 7){
+			$('div#text').text("Any questions? Good. Let's go out there and win the cup boys!")
+		}
+		if(events_counter == 8){
+			$('#chatting').hide();
+			energy_points--;
+			energy_points--;
+			energy_points--;
+			$('div#person').text('Narrator')
+			$('div#text').text("You head out of the tunnel and into the pitch.")
+			updatePoints();
+		}
+		if(events_counter == 9){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			$('div#person').text('Bob')
+			$('div#text').text("Just one more match, and we will win it. No more mistakes today! Let's go boys!")
+			$('#hotel').fadeOut(3000, function() {
+				window.location = 'germany1.html';
+			})
+		}
+		if(events_counter == 21){
+			$('div#text').text("Any questions? Good. Let's go out there and win the cup boys!")
+		}
+		if(events_counter == 22){
+			$('#chatting').hide();
+			energy_points--;
+			$('div#person').text('Narrator')
+			$('div#text').text("You head out of the tunnel and into the bench.")
+			updatePoints();
+		}
+		if(events_counter == 23){
+			$('div#person').text('Bob')
+			$('div#text').text("I should have watched my energy more carefully, hopefully it won't bite me in the back...though my guts says otherwise.")
+		}
+		if(events_counter == 24){
+			snd_stadium.play();
+			$('div#hotel').css({
+				'background-image': 'url(images/stadium.jpg)'
+			})
+			$('div#person').text('Narrator')
+			$('div#text').text("'Some time later...")
+		}
+		if(events_counter == 25){
+			$('div#text').text("It's the 70th minute. Your team is losing 1-3.")
+		}
+		if(events_counter == 26){
+			$('div#text').text("Your mind is in a rage since England is losing and the manager still has not substitute you in.")
+		}
+		if(events_counter == 27){
+			$('div#text').text("It's not until the 75th minute the manager starts heading towards you.")
+		}
+		if(events_counter == 28){
+			$('#chatting').show();
+			$('div#person').text('Manager')
+			$('div#text').text("Haydn, you are up. Substitute with the second-choice striker.")
+		}
+		if(events_counter == 29){
+			$('div#person').text('Narrator')
+			$('div#text').text("You thought to yourself that the manager is getting cold feet because having two strikers is better than one in this circumstances.")
+		}
+		if(events_counter == 30){
+			$('#chatting').hide();
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			$('div#person').text('Announcer')
+			$('div#text').text("75th minute substitution for England second-choice striker for Bob Haydn.")
+			$('#hotel').fadeOut(3000, function() {
+				window.location = 'falsehope.html';
+			})
+		}
+	}
+})
+</script>
+</head>
+<body>
+	<div id="hotel">
+		<img src="images/manager.png" id="chatting">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="person"> Bob </div>
+		<div id="text"> "Here we go Finals!"</div>
+	</div>
+</body>
+</html>

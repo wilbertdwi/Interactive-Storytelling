@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+	$('div#start').click(function() {
+			$('#intro').fadeOut(2000, function() {
+				window.location = 'welcome.html';
+			})
+		})
+})
+</script>
+</head>
+<body>
+	<div id="intro">
+		<div id="start">Start</div>
+	</div>
+</body>
+</html>

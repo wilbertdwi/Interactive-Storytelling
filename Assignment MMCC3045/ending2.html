@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+
+	var events_counter = 0;
+
+	$('div#text').click(events_handler);
+	$('div#start').hide();
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('div#stadium').css({
+				'background-image': 'url(images/lockerroom.jpg)'
+			})
+			$('div#text').text("Back at the dressing room, some your teammates gave you cold stares.")
+		}
+		if(events_counter == 2){
+			$('div#text').text("You can't help but feel dejected and rightfully so.")
+		}
+		if(events_counter == 3){
+			$('div#text').text("After all, you wasted whatever precious chances to take the lead.")
+		}
+		if(events_counter == 4){
+			$('div#stadium').css({
+				'background-image': 'url(images/badending2.jpg)'
+			})
+			$('div#text').text("When you returned home, the media and fans were quick to point and scapegoat you and the manager as the main reasons why England got knocked out of the World Cup.")
+		}
+		if(events_counter == 5){
+			$('div#text').text("As you sat there reading the news feeling dismal, you tried to recollect the memories of that match")
+		}
+		if(events_counter == 6){
+			$('div#person').text('Bob')
+			$('div#text').text("'Darn it, I should have done better and took those chances...'")
+		}
+		if(events_counter == 7){
+			$('div#text').text("'There goes my only World Cup appearance...'")
+		}
+		if(events_counter == 8){
+			$('div#person').text('Narrator')
+			$('div#text').text("Game over")
+		}
+		if(events_counter == 9){
+			$('div#text').hide()
+			$('div#person').hide()
+			$('div#start').show()
+		}
+
+		$('div#start').click(function() {
+			$('#stadium').fadeOut(2000, function() {
+				window.location = 'index.html';
+			})
+		})
+
+		
+	}
+
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="person"> Narrator </div>
+		<div id="text">You lost to Italy.</div>
+		<div id="start">Retry?</div>
+	</div>
+</body>
+</html>

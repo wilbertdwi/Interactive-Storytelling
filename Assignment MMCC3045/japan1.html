@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	var events_counter = 0;
+	var england_score = 3;
+	var snd_stadium = new Audio('sounds/match.mp3')
+	snd_stadium.loop = true;
+	var snd_foul = new Audio('sounds/foul.mp3');
+	var myTimer;
+	updatePoints();
+	$('div#text').click(events_handler);
+	$('img#dodge').hide();
+
+	function timer() {
+  		myTimer = setTimeout(function(){
+  		snd_foul.play();
+  		$('img#dodge').hide();
+  		 $('div#text').show();
+  		 injury_counter++;
+  		 updatePoints();
+  		 $('div#text').text("You got tackled heavily. A quick restart played.")
+  		}, 1500);
+	}
+
+	function stopTimer(){
+		clearTimeout(myTimer);
+	}
+
+	function events_handler(){
+		snd_stadium.play();
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').text("75th minute")
+		}
+		if(events_counter == 2){
+			$('div#text').text("You received the ball. Looking up to pass the ball.")
+		}
+		if(events_counter == 3){
+			$('img#dodge').show();
+			$('div#text').hide();
+			timer();
+		}
+		if(events_counter == 4){
+			$('div#text').text("But the chance goes begging.")
+		}
+		if(events_counter == 5){
+			$('div#text').text("85th minute")
+		}
+		if(events_counter == 6){
+			$('div#text').text("Some quick counter attack from England. Midfielder looks up to see who to pass.")
+		}
+		if(events_counter == 7){
+			$('div#text').text("Midfielder found space and passes to Bob Haydn!")
+		}
+		if(events_counter == 8){
+			localStorage.setItem('energy_points',energy_points);
+			localStorage.setItem('injury_counter',injury_counter);
+			localStorage.setItem('england_score',england_score);
+			$('div#text').text("A chance for Bob Haydn to score!")
+			$('#stadium').fadeOut(2000, function() {
+				window.location = 'japanscore.html';
+			})
+		}
+	}
+
+	$('img#dodge').click(function() {
+		stopTimer();
+		$('div#text').show();
+		$('img#dodge').hide();
+  		$('div#text').text("You dodge the incomming opponent and pass quickly.")
+	});
+
+	function updatePoints() {
+		$('#england').text(england_score);
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+	}
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="scoreboard">
+			<div id="home">ENGLAND [<span id="england"></span>]</div>
+			<div id="away">[1] JAPAN </div>
+		</div>
+		<img src="images/dodge.png" id="dodge">
+		<div id="text"> "Here comes Bob Haydn"</div>
+	</div>
+</body>
+</html>

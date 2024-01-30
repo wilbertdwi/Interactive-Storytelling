@@ -1,0 +1,431 @@
+body{
+	background-color: black;
+}
+/*scenes*/
+div#intro{
+	width:1000px;
+	height: 650px;
+	background-image: url('images/menu.jpg');
+	background-size:cover;
+	
+	margin: auto;
+	position:relative;
+	overflow: hidden;
+}
+
+
+div#training{
+	width:1000px;
+	height: 650px;
+	background-image: url('images/training.jpg');
+	background-size:cover;
+	
+	margin: auto;
+	position:relative;
+	overflow: hidden;
+}
+
+div#shooting{
+	width:1200px;
+	height: 650px;
+	background-image: url('images/minigame.jpg');
+	background-size:cover;
+	
+	margin: auto;
+	position:relative;
+	overflow: hidden;
+}
+
+div#hotel{
+	width:1000px;
+	height: 650px;
+	background-image: url('images/hotel.jpg');
+	background-size:cover;
+	
+	margin: auto;
+	position:relative;
+	overflow: hidden;
+}
+
+div#stadium{
+	width:1000px;
+	height: 650px;
+	background-image: url('images/stadium.jpg');
+	background-size:cover;
+	
+	margin: auto;
+	position:relative;
+	overflow: hidden;
+}
+
+#tutorial{
+	top:100px;
+	left:100px;
+	width: 800px;
+	height: 500px;
+	margin: auto;
+	position:relative;
+	overflow: hidden;
+}
+
+#news{
+	width: 1000px;
+	height: 650px;
+	margin: auto;
+	position:relative;
+	overflow: hidden;
+}
+
+#laptop{
+	width: 1000px;
+	height: 650px;
+	margin: auto;
+	position:relative;
+	overflow: hidden;
+}
+
+/*people and maps*/
+#chatting{
+	top: 200px;
+	left: 400px;
+	width: 200px;
+	height: 400px;
+	margin:auto;
+	position: absolute;
+}
+#stage{
+	width:1000px;
+	height:650px;
+	margin:auto;
+	position:relative;
+	background-color: #7cfc00;
+}
+
+#bob{
+	top: 300px;
+	left:50px;
+	width:70px;
+	height: 100px;
+	position:absolute;
+	overflow: hidden;
+}
+
+#bobshoot{
+	top: 500px;
+	left:550px;
+	width:50px;
+	height: 90px;
+	position:absolute;
+	overflow: hidden;
+}
+
+#wall1{
+	top: 175px;
+	left:300px;
+	width:80px;
+	height: 100px;
+	position:absolute;
+}
+
+#wall2{
+	top: 350px;
+	left:500px;
+	width:80px;
+	height: 100px;
+	position:absolute;
+}
+
+#wall3{
+	top: 175px;
+	left:700px;
+	width:80px;
+	height: 100px;
+	position:absolute;
+}
+
+#dribble1{
+	position: absolute;
+	top:0;
+	left:0;
+}
+
+#goal{
+	width:10px;
+	height:370px;
+	background-color:red;
+	position:absolute;
+	top:150px;
+	right:0px;
+}
+
+#ball{
+	width:30px;
+	height:30px;
+	position:absolute;
+	bottom:200px;
+	left:100px;
+}
+
+/*shoot/pass game*/
+#target1{
+	width:50px;
+	height:50px;
+	position:absolute;
+	top:80px;
+	left:450px;
+	opacity: 0.5;
+}
+
+#target1:hover {
+	opacity: 1;
+}
+
+#target2{
+	width:50px;
+	height:50px;
+	position:absolute;
+	top:80px;
+	left:575px;
+	opacity: 0.5;
+}
+
+#target2:hover {
+	opacity: 1;
+}
+
+#target3{
+	width:50px;
+	height:50px;
+	position:absolute;
+	top:80px;
+	left:700px;
+	opacity: 0.5;
+}
+
+#target3:hover {
+	opacity: 1;
+}
+
+#goalkeeper{
+	top:110px;
+	left:570px;
+	position:absolute;
+	width: 50px;
+	height: 90px;
+}
+
+#defender1{
+	top:200px;
+	left:300px;
+	position:absolute;
+	width: 60px;
+	height: 90px;
+}
+
+#defender2{
+	top:200px;
+	left:500px;
+	position:absolute;
+	width: 60px;
+	height: 90px;
+}
+
+#teammate{
+	top:500px;
+	left:500px;
+	position:absolute;
+	width: 60px;
+	height: 90px;
+}
+
+#defender3{
+	top:200px;
+	left:700px;
+	position:absolute;
+	width: 60px;
+	height: 90px;
+}
+
+#dodge{
+	top:200px;
+	left: 350px;
+	position:absolute;
+	width: 300px;
+	height: 300px;
+}
+
+#timerContainer {
+	position: absolute;
+	width: 200px;
+	height: 30px;
+	border: 1px solid #000;
+	top: 10px;
+	left: 10px;
+	z-index: 999;
+}
+#timerInner {
+	width: 200px;
+	height: 30px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #45de8a;
+}
+
+/*bartext*/
+div#person{
+	background-color: grey;
+	color:black;
+	position: absolute;
+	width:10%;
+	bottom: 70px;
+	left:0;
+	padding: 10px;
+	user-select:none;
+}
+
+div#text{
+	background-color: white;
+	color:black;
+	position: absolute;
+	height:50px;
+	width:100%;
+	bottom: 0;
+	left:0;
+	padding: 10px;
+	user-select:none;
+	font-size: 16px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+div#topbar{
+	background-color: white;
+	color:black;
+	position: absolute;
+	height:50px;
+	width:100%;
+	top: 0;
+	left:0;
+	padding: 10px;
+	user-select:none;
+	font-size: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+div#scoreboard{
+	background-color: grey;
+	color:black;
+	position: absolute;
+	left:0;
+	top:70px;
+	height:55px;
+	width:100%;
+	padding: 10px;
+	user-select:none;
+}
+
+#home{
+	background-color: white;
+	border-color: black;
+	text-align: center;
+	color:black;
+	border-style: solid;
+	position: absolute;
+	height:50px;
+	width:250px;
+	top: 0;
+	left:0;
+	padding: 10px;
+	user-select:none;
+	font-size: 36px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#away{
+	background-color: #00008B;
+	border-color: black;
+	text-align: center;
+	color:white;
+	border-style: solid;
+	position: absolute;
+	height:50px;
+	width:250px;
+	top: 0;
+	right:0;
+	padding: 10px;
+	user-select:none;
+	font-size: 36px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/*buttons*/
+div#rest{
+	background-color: #ffe5b4;
+	color:black;
+	position: absolute;
+	height:100px;
+	width:200px;
+	top: 45%;
+	left:10%;
+	border: 5px solid orange;
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+div#research{
+	background-color: #ffe5b4;
+	color:black;
+	position: absolute;
+	height:100px;
+	width:200px;
+	top: 45%;
+	left:400px;
+	border: 5px solid orange;
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+	text-align: center;
+  	justify-content: center;
+  	align-items: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+div#talk{
+	background-color: #ffe5b4;
+	color:black;
+	position: absolute;
+	height:100px;
+	width:200px;
+	top: 45%;
+	right:10%;
+	border: 5px solid orange;
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+	text-align: center;
+  	justify-content: center;
+  	align-items: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+div#start{
+	background-color: #ffe5b4;
+	color:black;
+	position: absolute;
+	height:100px;
+	width:200px;
+	top: 45%;
+	left:400px;
+	border: 5px solid orange;
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+	text-align: center;
+  	justify-content: center;
+  	align-items: center;
+	font-family: Arial, Helvetica, sans-serif;
+}

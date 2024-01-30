@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	var energy_points = localStorage.getItem('energy_points');
+	var injury_counter = localStorage.getItem('injury_counter');
+	var events_counter = 0;
+	var england_score = 1;
+	var germany_score = 3;
+	var snd_stadium = new Audio('sounds/match.mp3')
+	snd_stadium.loop = true;
+	var snd_foul = new Audio('sounds/foul.mp3');
+	var snd_boo = new Audio('sounds/boo.mp3');
+	updatePoints();
+	$('div#text').click(events_handler);
+	$('#home').css({
+		'background-color':'#990000',
+		'color':'white'
+	})
+	$('#away').css({
+		'background-color':'white',
+		'color':'black'
+	})
+
+	function events_handler(){
+		snd_stadium.play();
+		events_counter++;
+		if(events_counter == 1){
+			$('div#text').text("80th minute")
+		}
+		if(events_counter == 2){
+			$('div#text').text("England are having trouble breaking through Germany's midfield.")
+		}
+		if(events_counter == 3){
+			$('div#text').text("Midfielder finds Haydn and passes.")
+		}
+		if(events_counter == 4){
+			$('div#text').text("But the pass did not connect and Germany easily intercept it.")
+		}
+		if(events_counter == 5){
+			$('div#text').text("85th minute")
+		}
+		if(events_counter == 6){
+			$('div#text').text("It seems all over for England, looking at their play, their morale has sunk like a brick.")
+		}
+		if(events_counter == 7){
+			$('div#text').text("They can't seem to make proper passes while Germany on the other hand are dominating every side of the pitch.")
+		}
+		if(events_counter == 8){
+			$('div#text').text("Germany starts a quick counter attack against a demoralised England.")
+		}
+		if(events_counter == 9){
+			$('div#text').text("Chance for the Germany's striker to score a hattrick...")
+		}
+		if(events_counter == 10){
+			snd_boo.play();
+			$('div#text').text("It's IN!!! A hattrick in a World Cup Final, he's done it!!!")
+		}
+		if(events_counter == 11){
+			germany_score = 4;
+			updatePoints();
+			$('div#text').text("Surely that's over for England.")
+		}
+		if(events_counter == 12){
+			snd_foul.play();
+			$('div#text').text("Full time! It's over, Germany has won the World Cup!!")
+		}
+		if(events_counter == 13){
+			$('div#text').text("A dismal performance by England as they lost 1-4.")
+			$('#stadium').fadeOut(3000, function() {
+				window.location = 'ending3.html';
+			})
+		}
+	}
+
+	function updatePoints() {
+		$('#england').text(england_score);
+		$('#germany').text(germany_score);
+		$('#energy').text(energy_points);
+		$('#injury').text(injury_counter);
+	}
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="topbar">
+			<div>Energy : <span id="energy"></span>/5</div>
+			<div>Injury Counter : <span id="injury"></span>/3</div>
+		</div>
+		<div id="scoreboard">
+			<div id="home">ENGLAND [<span id="england"></span>]</div>
+			<div id="away">[<span id="germany"></span>] GERMANY </div>
+		</div>
+		<div id="text"> "Here comes Bob Haydn but is it too late?"</div>
+	</div>
+</body>
+</html>

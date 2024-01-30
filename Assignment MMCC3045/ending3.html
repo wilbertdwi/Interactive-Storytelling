@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Cup Hero</title>
+<link href="styles.css" rel="stylesheet" />
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+
+	var events_counter = 0;
+
+	$('div#text').click(events_handler);
+	$('div#start').hide();
+
+	function events_handler(){
+		events_counter++;
+		if(events_counter == 1){
+			$('div#stadium').css({
+				'background-image': 'url(images/lockerroom.jpg)'
+			})
+			$('div#text').text("Everyone was feeling down. You can cut the tension with a knife.")
+		}
+		if(events_counter == 2){
+			$('div#text').text("You can't help but feel bitter and rightfully so.")
+		}
+		if(events_counter == 3){
+			$('div#text').text("After all, we lost in the World Cup Final.")
+		}
+		if(events_counter == 4){
+			$('div#stadium').css({
+				'background-image': 'url(images/badending3.jpg)'
+			})
+			$('div#text').text("When you returned home, the media and fans question and lambasted manager's tactical decision during the match. Some fans are also blaming both of the backup strikers fault.")
+		}
+		if(events_counter == 5){
+			$('div#text').text("As you sat there reading the news feeling dismal, you tried to recollect the memories of that match and thinking that you should have done better.")
+		}
+		if(events_counter == 6){
+			$('div#person').text('Bob')
+			$('div#text').text("'I know they are tough but darn it, I should have done better and took those chances...'")
+		}
+		if(events_counter == 7){
+			$('div#text').text("'There goes my only World Cup appearance...'")
+		}
+		if(events_counter == 8){
+			$('div#person').text('Narrator')
+			$('div#text').text("Game over")
+		}
+		if(events_counter == 9){
+			$('div#text').hide()
+			$('div#person').hide()
+			$('div#start').show()
+		}
+
+		$('div#start').click(function() {
+			$('#stadium').fadeOut(2000, function() {
+				window.location = 'index.html';
+			})
+		})
+
+		
+	}
+
+})
+</script>
+</head>
+<body>
+	<div id="stadium">
+		<div id="person"> Narrator </div>
+		<div id="text">You lost to Germany.</div>
+		<div id="start">Retry?</div>
+	</div>
+</body>
+</html>
